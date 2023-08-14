@@ -79,6 +79,51 @@
             font-weight: bold;
             color: #e74c3c;
         }
+
+@media print {
+    /* Esconde todos os elementos por padrão */
+    body * {
+        visibility: hidden; 
+    }
+
+    /* Mostra apenas os elementos que você quer imprimir */
+    h1, #summaryTable, h3, #summaryTable * {
+        visibility: visible; 
+    }
+
+    /* Garante que todos os conteúdos da tabela sejam visíveis */
+    #summaryTable tr, #summaryTable td, #summaryTable th {
+        visibility: visible;
+        color: black;
+    }
+    
+    body {
+        color: black; /* Certifique-se de que o texto é preto para visibilidade ideal na impressão */
+        background-color: white; /* Define o fundo como branco para a impressão */
+    }
+
+    #summaryTable {
+        margin-top: 20px; /* Espaço entre a tabela e outros elementos */
+    }
+
+    #summaryTable th:nth-child(5), 
+    #summaryTable td:nth-child(5) {
+        display: none !important;
+    }
+
+    h3 { /* Esconde o preço sugerido */
+        visibility: visible;
+    }
+
+    h4{
+        display: none !important;
+    }
+
+    #totalCost {
+        visibility: visible;
+    }
+}
+
     </style>
 </head>
 <body>
@@ -113,7 +158,7 @@
         <button onclick="calculateSellingPrice()">Calcular Preço de Venda</button>
     </div>
     
-    <h3>Preço Sugerido por Unidade: R$ <span id="suggestedPrice">0.00</span></h3>
+    <h4>Preço Sugerido por Unidade: R$ <span id="suggestedPrice">0.00</span></h4>
 
     <hr>
     <hr>
@@ -125,6 +170,15 @@
             <button onclick="calculatePricePerKg()">Calcular</button>
             <span id="pricePerKgResult"></span>
         </div>
+
+    <h2>Conversor de Gramas para Quilos</h2>
+        <div id="gramToKgConverter">
+            <input type="number" id="inputGrams" placeholder="Peso em gramas" step="0.01">
+            <button onclick="convertGramsToKg()">Converter</button>
+            <span id="kgResult"></span>
+        </div>
+
+        <button onclick="printSummary()">Imprimir Resumo</button>
 
     <script>
         let totalCost = 0;
@@ -199,6 +253,23 @@
             const pricePerKg = (price / weight).toFixed(2);
             document.getElementById('pricePerKgResult').innerText = `Preço por KG: R$ ${pricePerKg}`;
         }
+
+        function convertGramsToKg() {
+    const grams = parseFloat(document.getElementById('inputGrams').value);
+
+    if (isNaN(grams)) {
+        alert("Por favor, insira um valor válido.");
+        return;
+    }
+
+    const kg = grams / 1000; // Converte gramas para quilos
+    document.getElementById('kgResult').innerText = `${grams} gramas é igual a ${kg.toFixed(2)} quilos.`;
+}
+
+        function printSummary() {
+    window.print();
+}
+
     </script>
 </body>
 </html>
