@@ -99,6 +99,7 @@
                 <th>Peso em kg</th>
                 <th>Preço por kg</th>
                 <th>Custo Total</th>
+                <th>Ação</th> <!-- Coluna adicional para Ação -->
             </tr>
         </thead>
         <tbody></tbody>
@@ -126,7 +127,6 @@
         </div>
 
     <script>
-        // scripts.js
         let totalCost = 0;
 
         function addIngredient() {
@@ -150,6 +150,21 @@
             newRow.insertCell(1).innerText = quantity.toFixed(2);
             newRow.insertCell(2).innerText = `R$ ${pricePerQuantity.toFixed(2)}`;
             newRow.insertCell(3).innerText = `R$ ${ingredientCost.toFixed(2)}`;
+
+            // Botão de exclusão
+            const deleteButton = document.createElement("button");
+            deleteButton.innerText = "Excluir";
+            deleteButton.onclick = function() {
+                // Diminui o custo total pelo custo do ingrediente removido
+                totalCost -= ingredientCost;
+
+                // Remove a linha
+                tbody.removeChild(newRow);
+
+                // Atualiza o custo total
+                document.getElementById("totalCost").innerText = totalCost.toFixed(2);
+            };
+            newRow.insertCell(4).appendChild(deleteButton);
 
             // Atualiza custo total
             document.getElementById("totalCost").innerText = totalCost.toFixed(2);
