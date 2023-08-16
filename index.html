@@ -131,7 +131,7 @@
 
     <div id="inputArea">
         <input type="text" id="ingredientName" placeholder="Nome do ingrediente">
-        <input type="number" id="quantity" placeholder="Peso em kg" step="0.01">
+        <input type="number" id="quantity" placeholder="Peso em kg" step="0.001">
         <input type="number" id="pricePerQuantity" placeholder="Preço por kg" step="0.01">
         <button onclick="addIngredient()">Adicionar Ingrediente</button>
     </div>
@@ -165,7 +165,7 @@
     
     <h2>Calculadora de Preço por KG</h2>
         <div id="kgCalculator">
-            <input type="number" id="productWeight" placeholder="Peso em kg do produto" step="0.01">
+            <input type="number" id="productWeight" placeholder="Peso em kg do produto" step="0.001">
             <input type="number" id="productPrice" placeholder="Preço do produto" step="0.01">
             <button onclick="calculatePricePerKg()">Calcular</button>
             <span id="pricePerKgResult"></span>
@@ -201,7 +201,7 @@
             const newRow = tbody.insertRow();
 
             newRow.insertCell(0).innerText = ingredientName;
-            newRow.insertCell(1).innerText = quantity.toFixed(2);
+            newRow.insertCell(1).innerText = quantity.toFixed(3);
             newRow.insertCell(2).innerText = `R$ ${pricePerQuantity.toFixed(2)}`;
             newRow.insertCell(3).innerText = `R$ ${ingredientCost.toFixed(2)}`;
 
